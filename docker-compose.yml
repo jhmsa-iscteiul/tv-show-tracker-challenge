@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: tvshowtracker-sqlserver
+    environment:
+      - SA_PASSWORD=YourStrong!Pass123
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserverdata:/var/opt/mssql
+    networks:
+      - tvshowtracker-network
+
+  api:
+    build: ./TvShowTracker
+    container_name: tvshowtracker-api
+    depends_on:
+      - sqlserver
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=sqlserver,1433;Database=TvShowTrackerDb;User Id=sa;Password=YourStrong!Pass123;TrustServerCertificate=True;
+      - ASPNETCORE_HTTPS_PORT=443
+    ports:
+      - "5050:80"
+      - "5443:443"
+    networks:
+      - tvshowtracker-network
+
+volumes:
+  sqlserverdata:
+
+networks:
+  tvshowtracker-network:
