@@ -7,7 +7,7 @@ namespace TvShowTracker.Models
         public int Id { get; set; }
         public required string Title { get; set; }
         public required string Description { get; set; }
-        public DateTime ReleaseDate { get; set; }  // <-- Add this
+        public DateTime ReleaseDate { get; set; }  
 
         public ICollection<Genre> Genres { get; set; } = new List<Genre>();
         public ICollection<Episode> Episodes { get; set; } = new List<Episode>();

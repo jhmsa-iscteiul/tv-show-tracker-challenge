@@ -28,7 +28,6 @@ public class ShowsController : ControllerBase
             .Include(s => s.Actors)
             .AsQueryable();
 
-        // Sorting
         query = (sortBy.ToLower(), sortOrder.ToLower()) switch
         {
             ("title", "asc") => query.OrderBy(s => s.Title),
@@ -63,8 +62,6 @@ public class ShowsController : ControllerBase
         });
     }
 
-
-
    [HttpGet("{id:int}")]
     public async Task<IActionResult> GetById(int id)
     {
@@ -86,17 +83,15 @@ public class ShowsController : ControllerBase
             genres = show.Genres.Select(g => g.Name).ToList(),
         };
 
-        // Add episodes
         var episodeDtos = show.Episodes.Select(e => new TvMazeEpisodeDto
         {
             id = e.Id,
             name = e.Title,
-            airdate = e.ReleaseDate.ToString("yyyy-MM-dd") ?? "",  // Assuming AirDate is nullable DateTime?
+            airdate = e.ReleaseDate.ToString("yyyy-MM-dd") ?? "", 
             season = e.Season,
             number = e.EpisodeNumber
         }).ToList();
 
-        // Add actors
         var castDtos = show.Actors.Select(a => new TvMazeCastDto
         {
             person = new TvMazePersonDto
@@ -105,7 +100,6 @@ public class ShowsController : ControllerBase
             }
         }).ToList();
 
-        // Return combined data as an anonymous object
         return Ok(new
         {
             show = showDto,
@@ -132,7 +126,6 @@ public class ShowsController : ControllerBase
                 s.Title,
                 s.Description,
                 s.ReleaseDate
-                // any other Show properties you want to return,
                 //Genres = s.Genres.Select(g => new { g.Id, g.Name }) // minimal genre info only
             })
             .ToListAsync();
@@ -145,29 +138,6 @@ public class ShowsController : ControllerBase
             Data = shows
         });
     }
-
-
-    // GET: api/shows/bytype/drama?page=1&pageSize=10
-    // [HttpGet("bytype/{type}")]
-    // public async Task<IActionResult> GetByType(string type, int page = 1, int pageSize = 10)
-    // {
-    //     var query = _context.Shows.Where(s => s.Type == type);
-
-    //     var totalItems = await query.CountAsync();
-
-    //     var shows = await query
-    //         .Skip((page - 1) * pageSize)
-    //         .Take(pageSize)
-    //         .ToListAsync();
-
-    //     return Ok(new {
-    //         Page = page,
-    //         PageSize = pageSize,
-    //         TotalItems = totalItems,
-    //         Data = shows
-    //     });
-    // }
-
     // GET: api/shows/5/actors
     [HttpGet("{id}/actors")]
     public async Task<IActionResult> GetActors(int id)
@@ -182,7 +152,6 @@ public class ShowsController : ControllerBase
             {
                 a.Id,
                 a.Name,
-                // include only properties you want to expose, no navigation props!
             })
             .ToListAsync();
 

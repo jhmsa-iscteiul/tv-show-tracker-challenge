@@ -40,10 +40,8 @@ namespace TvShowTracker.Services
                 foreach (var showDto in shows)
                 {
 
-                    // Parse release date
                     DateTime releaseDate = DateTime.TryParse(showDto.premiered, out var date) ? date : DateTime.MinValue;
 
-                    // Check if show with same Title and ReleaseDate exists
                     bool showExists = await db.Shows.AnyAsync(s => s.Title == showDto.name && s.ReleaseDate == releaseDate);
 
                     if (showExists) continue;
@@ -58,7 +56,6 @@ namespace TvShowTracker.Services
                         ReleaseDate = DateTime.TryParse(showDto.premiered, out var date2) ? date2 : DateTime.MinValue
                     };
 
-                    // Add genres
                     foreach (var genreName in showDto.genres.Distinct())
                     {
                         var genre = await db.Genres.FirstOrDefaultAsync(g => g.Name == genreName)
@@ -67,7 +64,6 @@ namespace TvShowTracker.Services
                         show.Genres.Add(genre);
                     }
 
-                    // Get episodes
                     var episodes = await _httpClient.GetFromJsonAsync<List<TvMazeEpisodeDto>>($"https://api.tvmaze.com/shows/{showDto.id}/episodes");
                     if (episodes != null)
                     {
@@ -85,7 +81,6 @@ namespace TvShowTracker.Services
                         }
                     }
 
-                    // Get cast
                     var cast = await _httpClient.GetFromJsonAsync<List<TvMazeCastDto>>($"https://api.tvmaze.com/shows/{showDto.id}/cast");
                     if (cast != null)
                     {

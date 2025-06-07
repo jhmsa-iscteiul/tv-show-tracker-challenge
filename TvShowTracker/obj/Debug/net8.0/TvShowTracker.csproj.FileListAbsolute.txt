@@ -167,3 +167,4 @@
 /Users/joaosilva/Desktop/tv-show-tracker-challenge/TvShowTracker/obj/Debug/net8.0/TvShowTracker.pdb
 /Users/joaosilva/Desktop/tv-show-tracker-challenge/TvShowTracker/obj/Debug/net8.0/TvShowTracker.genruntimeconfig.cache
 /Users/joaosilva/Desktop/tv-show-tracker-challenge/TvShowTracker/obj/Debug/net8.0/ref/TvShowTracker.dll
+/Users/joaosilva/Desktop/tv-show-tracker-challenge/TvShowTracker/obj/Debug/net8.0/TvShowTracker.sourcelink.json

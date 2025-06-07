@@ -15,7 +15,6 @@ namespace TvShowTracker.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Many-to-many relationships config example
             modelBuilder.Entity<Show>()
                 .HasMany(t => t.Genres)
                 .WithMany(g => g.Shows);
@@ -24,8 +23,7 @@ namespace TvShowTracker.Data
                 .HasMany(t => t.Actors)
                 .WithMany(a => a.Shows);
 
-            // User-Favorite-TvShow relationship
-            // Many-to-many between User and TvShow for Favorites
+            
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Favorites)
                 .WithMany()
