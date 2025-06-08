@@ -3,7 +3,6 @@
 ![.NET](https://img.shields.io/badge/.NET-8-blue)
 ![Docker](https://img.shields.io/badge/Docker-Container-blue)
 ![SQL Server](https://img.shields.io/badge/Database-SQL%20Server-green)
-![License](https://img.shields.io/badge/license-MIT-green)
 
 A RESTful Web API built with **.NET 8** that fetches information about TV shows and stores it in a **SQL Server** database running inside a Docker container.
 
